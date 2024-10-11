@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import miage.abdelali.ari.Entities.Student;
@@ -41,5 +43,15 @@ public class StudentController {
 	@GetMapping("/email/{email}")
 	public Student getStudentByEmail(@PathVariable String email) {
 		return studentRepository.findByEmail(email);
+	}
+	
+	@PostMapping("/addstudent")
+	public Student createStudent(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email) {
+		Student student = new Student();
+		student.setFirstName(firstName);
+		student.setLastName(lastName);
+		student.setEmail(email);
+		studentRepository.save(student);
+		return student;
 	}
 }
