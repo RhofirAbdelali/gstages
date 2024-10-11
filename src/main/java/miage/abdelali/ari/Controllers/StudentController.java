@@ -11,47 +11,43 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import miage.abdelali.ari.Entities.Student;
-import miage.abdelali.ari.Repositories.StudentRepository;
+import miage.abdelali.ari.Services.Impl.StudentServiceImpl;
 
 @RestController
 @RequestMapping("students")
 public class StudentController {
-	
+
 	@Autowired
-	private StudentRepository studentRepository;
-	
+	public StudentServiceImpl studentService;
+
 	@GetMapping
-	public List<Student> getAllStudents(){
-		return studentRepository.findAll();
+	public List<Student> getAllStudents() {
+		return studentService.getAllStudents();
 	}
 
 	@GetMapping("/id/{id}")
 	public Student getStudentById(@PathVariable long id) {
-		return studentRepository.findById(id);
+		return studentService.getStudentById(id);
 	}
-	
-	@GetMapping("/firstname/{firsName}")
-	public List<Student> getStudentsByFirstName(@PathVariable String firstName){
-		return studentRepository.findByFirstName(firstName);
+
+	@GetMapping("/firstname/{firstName}")
+	public List<Student> getStudentsByFirstName(@PathVariable String firstName) {
+		return studentService.getStudentsByFirstName(firstName);
 	}
-	
+
 	@GetMapping("/lastname/{lastName}")
-	public List<Student> getStudentsByLastName(@PathVariable String lastName){
-		return studentRepository.findByLastName(lastName);
+	public List<Student> getStudentsByLastName(@PathVariable String lastName) {
+		return studentService.getStudentsByLastName(lastName);
 	}
-	
+
 	@GetMapping("/email/{email}")
 	public Student getStudentByEmail(@PathVariable String email) {
-		return studentRepository.findByEmail(email);
+		return studentService.getStudentByEmail(email);
 	}
-	
+
 	@PostMapping("/addstudent")
-	public Student createStudent(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email) {
-		Student student = new Student();
-		student.setFirstName(firstName);
-		student.setLastName(lastName);
-		student.setEmail(email);
-		studentRepository.save(student);
-		return student;
+	public Student createStudent(@RequestParam String firstName, @RequestParam String lastName,
+			@RequestParam String email) {
+		return studentService.createStudent(firstName, lastName, email);
 	}
 }
