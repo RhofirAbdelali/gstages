@@ -11,35 +11,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import miage.abdelali.ari.Entities.Stage;
-import miage.abdelali.ari.Repositories.StageRepository;
+import miage.abdelali.ari.Services.Impl.StageServiceImpl;
 
 @RestController
 @RequestMapping("stages")
 public class StageController {
-	
+
 	@Autowired
-	private StageRepository stageRepository;
-	
+	private StageServiceImpl stageService;
+
 	@GetMapping
-	public List<Stage> getAllStage() {
-		return stageRepository.findAll();
+	public List<Stage> getAllStages() {
+		return stageService.getAllStages();
 	}
-	
+
 	@GetMapping("/id/{id}")
 	public Stage getStageById(@PathVariable long id) {
-		return stageRepository.findById(id);
+		return stageService.getStageById(id);
 	}
-	
+
 	@GetMapping("/name/{name}")
-	public List<Stage> getStageByName(@PathVariable String name){
-		return stageRepository.findByName(name);
+	public List<Stage> getStageByName(@PathVariable String name) {
+		return stageService.getStageByName(name);
 	}
-	
+
 	@PostMapping("/addstage")
 	public Stage createStage(@RequestParam String name, @RequestParam String description) {
-		Stage stage = new Stage(name,description);
-		stageRepository.save(stage);
-		return stage;
+		return stageService.createStage(name, description);
 	}
 
 }
