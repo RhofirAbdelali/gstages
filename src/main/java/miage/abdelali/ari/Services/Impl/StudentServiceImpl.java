@@ -47,4 +47,21 @@ public class StudentServiceImpl implements StudentService {
 		return student;
 	}
 
+	@Override
+	public void deleteStudent(long id) {
+		studentRepository.deleteById(id);
+	}
+
+	@Override
+	public Student updateStudent(long id, String firstName, String lastName, String email) {
+		Student studentToUpdate = studentRepository.findById(id);
+		if (studentToUpdate == null) {
+			throw new RuntimeException("Student not found with id: " + id);
+		}
+		studentToUpdate.setFirstName(firstName);
+		studentToUpdate.setLastName(lastName);
+		studentToUpdate.setEmail(email);
+		return studentRepository.save(studentToUpdate);
+	}
+
 }

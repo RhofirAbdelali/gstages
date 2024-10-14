@@ -16,4 +16,9 @@ public interface StudentService {
 	public Student getStudentByEmail(String email);
 
 	public Student createStudent(String firstName, String lastName, String email);
+	
+	public Student updateStudent(long id, String firstName, String lastName, String email);
+
+	
+	void deleteStudent(long id);
 }
