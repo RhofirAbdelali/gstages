@@ -4,9 +4,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +21,7 @@ import miage.abdelali.ari.Services.Impl.StudentServiceImpl;
 
 @RestController
 @RequestMapping("students")
+@CrossOrigin(origins = "http://localhost:3000")
 public class StudentController {
 
 	@Autowired
@@ -63,4 +67,16 @@ public class StudentController {
 				student.getEmail());
 		return studentDtoMapper.toDto(createStudent);
 	}
+	
+	@DeleteMapping("/delete/{id}")
+    public void deleteStudent(@PathVariable long id) {
+        studentService.deleteStudent(id);
+    }
+	
+	@PutMapping("/update/{id}")
+    public StudentDto updateStudent(@PathVariable long id, @RequestBody StudentDto studentDto) {
+		Student studentToUpdate = studentDtoMapper.toEntity(studentDto);
+        Student updatedStudent = studentService.updateStudent(id, studentToUpdate.getFirstName(), studentToUpdate.getLastName(), studentToUpdate.getEmail());
+        return studentDtoMapper.toDto(updatedStudent);
+    }
 }
