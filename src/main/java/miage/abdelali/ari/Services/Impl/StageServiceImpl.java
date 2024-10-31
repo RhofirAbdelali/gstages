@@ -37,4 +37,20 @@ public class StageServiceImpl implements StageService {
 		return stage;
 	}
 
+	@Override
+	public void deleteStage(long id) {
+		stageRepository.deleteById(id);
+	}
+
+	@Override
+	public Stage updateStage(long id, String name, String description) {
+		Stage stageToUpdate = stageRepository.findById(id);
+		if (stageToUpdate == null) {
+			throw new RuntimeException("Stage not found with id: " + id);
+		}
+		stageToUpdate.setName(name);
+		stageToUpdate.setDescription(description);
+		return stageRepository.save(stageToUpdate);
+	}
+
 }

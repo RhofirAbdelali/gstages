@@ -13,4 +13,8 @@ public interface StageService {
 
 	public Stage createStage(String name, String description);
 
+	public Stage updateStage(long id, String name, String description);
+
+	void deleteStage(long id);
+
 }
