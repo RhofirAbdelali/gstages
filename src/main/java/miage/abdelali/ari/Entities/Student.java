@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Student {
@@ -13,6 +15,9 @@ public class Student {
 	private String firstName;
 	private String lastName;
 	private String email;
+	@ManyToOne
+    @JoinColumn(name = "stage_id")
+    private Stage stage;
 
 	public Student() {}
 
@@ -52,6 +57,14 @@ public class Student {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public Stage getStage() {
+		return stage;
+	}
+
+	public void setStage(Stage stage) {
+		this.stage = stage;
 	}
 
 	@Override

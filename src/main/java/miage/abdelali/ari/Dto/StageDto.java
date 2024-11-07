@@ -1,10 +1,13 @@
 package miage.abdelali.ari.Dto;
 
+import java.util.List;
+
 public class StageDto {
     
     private Long id;
     private String name;
     private String description;
+    private List<StudentDto> students;
 
     public Long getId() {
         return id;
@@ -29,4 +32,12 @@ public class StageDto {
     public void setDescription(String description) {
         this.description = description;
     }
+
+	public List<StudentDto> getStudents() {
+		return students;
+	}
+
+	public void setStudents(List<StudentDto> students) {
+		this.students = students;
+	}
 }

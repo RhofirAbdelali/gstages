@@ -63,8 +63,7 @@ public class StudentController {
 	@PostMapping("/addstudent")
 	public StudentDto createStudent(@RequestBody StudentDto studentDto) {
 		Student student = studentDtoMapper.toEntity(studentDto);
-		Student createStudent = studentService.createStudent(student.getFirstName(), student.getLastName(),
-				student.getEmail());
+		Student createStudent = studentService.save(student);
 		return studentDtoMapper.toDto(createStudent);
 	}
 	
@@ -75,8 +74,8 @@ public class StudentController {
 	
 	@PutMapping("/update/{id}")
     public StudentDto updateStudent(@PathVariable long id, @RequestBody StudentDto studentDto) {
-		Student studentToUpdate = studentDtoMapper.toEntity(studentDto);
-        Student updatedStudent = studentService.updateStudent(id, studentToUpdate.getFirstName(), studentToUpdate.getLastName(), studentToUpdate.getEmail());
+		Long stageId = studentDto.getStageId();
+        Student updatedStudent = studentService.updateStudent(id, studentDto.getFirstName(), studentDto.getLastName(), studentDto.getEmail(), stageId);
         return studentDtoMapper.toDto(updatedStudent);
     }
 }

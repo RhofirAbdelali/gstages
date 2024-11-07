@@ -17,8 +17,9 @@ public interface StudentService {
 
 	public Student createStudent(String firstName, String lastName, String email);
 	
-	public Student updateStudent(long id, String firstName, String lastName, String email);
+	public Student updateStudent(long id, String firstName, String lastName, String email, Long stageId);
 
+	Student save(Student student);
 	
 	void deleteStudent(long id);
 }
