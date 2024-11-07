@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import miage.abdelali.ari.Entities.Stage;
 import miage.abdelali.ari.Entities.Student;
+import miage.abdelali.ari.Repositories.StageRepository;
 import miage.abdelali.ari.Repositories.StudentRepository;
 import miage.abdelali.ari.Services.StudentService;
 
@@ -14,6 +16,9 @@ public class StudentServiceImpl implements StudentService {
 
 	@Autowired
 	private StudentRepository studentRepository;
+	
+	@Autowired
+	private StageRepository stageRepository;
 
 	@Override
 	public List<Student> getAllStudents() {
@@ -24,6 +29,11 @@ public class StudentServiceImpl implements StudentService {
 	public Student getStudentById(long id) {
 		return studentRepository.findById(id);
 	}
+	
+	@Override
+	public Student save(Student student) {
+        return studentRepository.save(student);
+    }
 
 	@Override
 	public List<Student> getStudentsByFirstName(String firstName) {
@@ -53,7 +63,7 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public Student updateStudent(long id, String firstName, String lastName, String email) {
+	public Student updateStudent(long id, String firstName, String lastName, String email, Long stageId) {
 		Student studentToUpdate = studentRepository.findById(id);
 		if (studentToUpdate == null) {
 			throw new RuntimeException("Student not found with id: " + id);
@@ -61,6 +71,13 @@ public class StudentServiceImpl implements StudentService {
 		studentToUpdate.setFirstName(firstName);
 		studentToUpdate.setLastName(lastName);
 		studentToUpdate.setEmail(email);
+		if (stageId != null) {
+	        Stage stage = stageRepository.findById(stageId)
+	            .orElseThrow(() -> new RuntimeException("Stage not found with id: " + stageId));
+	        studentToUpdate.setStage(stage);
+	    } else {
+	        studentToUpdate.setStage(null);
+	    }
 		return studentRepository.save(studentToUpdate);
 	}
 

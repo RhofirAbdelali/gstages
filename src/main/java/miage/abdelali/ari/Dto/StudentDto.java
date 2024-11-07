@@ -5,6 +5,7 @@ public class StudentDto {
 	private String firstName;
 	private String lastName;
 	private String email;
+	private Long stageId;
 
 	public Long getId() {
 		return id;
@@ -36,6 +37,14 @@ public class StudentDto {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Long getStageId() {
+		return stageId;
+	}
+
+	public void setStageId(Long stageId) {
+		this.stageId = stageId;
 	}
 
 }

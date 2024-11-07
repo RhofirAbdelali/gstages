@@ -20,12 +20,21 @@ public class GStagesApplication {
 	@Bean
 	CommandLineRunner demo(StudentRepository studentRepository, StageRepository stageRepository) {
 		return (args) -> {
-			studentRepository.save(new Student("Abdelali", "Rhofir", "Abdo.rhofir@gmail.com"));
-			studentRepository.save(new Student("Karim", "Benlala", "karim@gmail.com"));
-			studentRepository.save(new Student("Sami", "Essou", "Sami@gmail.com"));
-			stageRepository.save(new Stage("Application Mobile", "Développement d'une application mobile avec Flutter"));
-			stageRepository.save(new Stage("Dashboard", "Développement d'un tableau de bord avec Power BI"));
-			stageRepository.save(new Stage("Application Web", "Développement d'une application web avec Spring Boot et React"));
+			Stage stage1 = new Stage("Application Mobile", "Développement d'une application mobile avec Flutter");
+			Stage stage2 = new Stage("Dashboard", "Développement d'un tableau de bord avec Power BI");
+			Stage stage3 = new Stage("Application Web", "Développement d'une application web avec Spring Boot et React");
+			stageRepository.save(stage1);
+			stageRepository.save(stage2);
+			stageRepository.save(stage3);
+			Student student1 = new Student("Abdelali", "Rhofir", "Abdo.rhofir@gmail.com");
+			Student student2 =new Student("Karim", "Benlala", "karim@gmail.com");
+			Student student3 =new Student("Sami", "Essou", "Sami@gmail.com");
+			student1.setStage(stage1);
+			student2.setStage(stage2);
+			student3.setStage(stage3);
+			studentRepository.save(student1);
+			studentRepository.save(student2);
+			studentRepository.save(student3);
 		};
 	}
 

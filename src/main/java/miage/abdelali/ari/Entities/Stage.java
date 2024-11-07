@@ -1,9 +1,14 @@
 package miage.abdelali.ari.Entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Stage {
@@ -12,6 +17,8 @@ public class Stage {
 	private Long id;
 	private String name;
 	private String description;
+	@OneToMany(mappedBy = "stage", cascade = CascadeType.ALL)
+    private List<Student> students = new ArrayList<>();
 
 	public Stage() {}
 
